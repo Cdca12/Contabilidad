@@ -12,7 +12,7 @@ public class MenuRegistro extends JDialog implements ActionListener {
     
     private JLabel lbCuenta, lbNombre, lbSaldo;
     private JTextField txtCuenta, txtNombre, txtSaldo;
-    private JButton btnGuardar, btnCancelar;
+    private JButton btnAñadir, btnCancelar;
     
     // TODO: Hacer que no se pueda cerrar
 
@@ -48,10 +48,10 @@ public class MenuRegistro extends JDialog implements ActionListener {
         txtSaldo.setBounds(110, 105, 150, 30);
         add(txtSaldo);
         
-        btnGuardar = new JButton("Guardar");
-        btnGuardar.setBounds(50, 170, 100, 30);
-        btnGuardar.addActionListener(this);
-        add(btnGuardar);
+        btnAñadir = new JButton("Añadir");
+        btnAñadir.setBounds(50, 170, 100, 30);
+        btnAñadir.addActionListener(this);
+        add(btnAñadir);
         
         btnCancelar = new JButton("Cancelar");
         btnCancelar.setBounds(160, 170, 100, 30);
@@ -63,7 +63,7 @@ public class MenuRegistro extends JDialog implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if(btnGuardar == evt.getSource()) {
+        if(btnAñadir == evt.getSource()) {
             // TODO: Método guardar
             return;
         }
