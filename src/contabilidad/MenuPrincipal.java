@@ -74,7 +74,8 @@ public class MenuPrincipal extends JFrame {
         
         // TEST:
 //        new MenuRegistro();
-        new MenuModificacion();
+//        new MenuModificacion();
+        new MenuBaja();
     
     }
 }

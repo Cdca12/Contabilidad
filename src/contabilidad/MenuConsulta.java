@@ -8,7 +8,7 @@ import javax.swing.*;
 public class MenuConsulta extends JDialog {
 
     public MenuConsulta() {
-        setTitle("Titulo");
+        setTitle("Consulta");
         setSize(500, 400);
         setLayout(null);
         setLocationRelativeTo(null);
