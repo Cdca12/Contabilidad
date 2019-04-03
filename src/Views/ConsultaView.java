@@ -1,13 +1,13 @@
-package contabilidad;
+package Views;
 
 import javax.swing.*;
 /**
  *
  * @author Carlos Contreras
  */
-public class MenuConsulta extends JDialog {
+public class ConsultaView extends JDialog {
 
-    public MenuConsulta() {
+    public ConsultaView() {
         setTitle("Consulta");
         setSize(500, 400);
         setLayout(null);
@@ -16,6 +16,7 @@ public class MenuConsulta extends JDialog {
         setModal(true);
         
         // TODO: Write code
+        
         
         setVisible(true);
     }

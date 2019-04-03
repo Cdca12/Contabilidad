@@ -1,5 +1,7 @@
 package contabilidad;
 
+import Views.MenuPrincipal;
+
 /**
  *
  * @author Carlos Contreras

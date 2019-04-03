@@ -1,5 +1,7 @@
-package contabilidad;
+package Views;
 
+import Controller.RegistroController;
+import Models.RegistroModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -30,28 +32,28 @@ public class MenuPrincipal extends JFrame {
         registro.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new MenuRegistro();
+                new RegistroView();
             }
         });
         modificacion = new JMenuItem("Modificación");
         modificacion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new MenuModificacion();
+                new ModificacionView();
             }
         });
         baja = new JMenuItem("Baja");
         baja.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new MenuBaja();
+                new BajaView();
             }
         });
         consulta = new JMenuItem("Consulta");
         consulta.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new MenuConsulta();
+                new ConsultaView();
             }
         });
         catalogo.add(registro);
@@ -73,9 +75,16 @@ public class MenuPrincipal extends JFrame {
         setVisible(true);
         
         // TEST:
-//        new MenuRegistro();
-//        new MenuModificacion();
-        new MenuBaja();
+        RegistroView view = new RegistroView();
+        RegistroModel model = new RegistroModel();
+        RegistroController controller = new RegistroController(model, view);
+        view.setController(controller);
+        view.lanzarVista();
+         // vista
+//        new RegistroView();
+//        new ModificacionView();
+//        new BajaView();
+//        new ConsultaView();
     
     }
 }
