@@ -65,11 +65,12 @@ public class RegistroView extends JDialog {
 
     public void setController(RegistroController controller) {
         this.controller = controller;
-        txtCuenta.addFocusListener(controller);
-        txtNombre.addFocusListener(controller);
-        txtSaldo.addFocusListener(controller);
         btnAñadir.addActionListener(controller);
         btnCancelar.addActionListener(controller);
+    }
+    
+    public void mostrarMensajeError(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje);
     }
     
     public void limpiarCampos() {
