@@ -20,16 +20,16 @@ public class ModificacionController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (evt.getSource() == view.btnBuscar) {
+        if (view.btnBuscar == evt.getSource()) {
             // TODO: Buscar
             view.buscarCuenta();
             return;
         }
-        if (evt.getSource() == view.btnGuardar) {
+        if (view.btnGuardar == evt.getSource()) {
             // TODO: Guardar
             return;
         }
-        if (evt.getSource() == view.btnCancelar) {
+        if (view.btnCancelar == evt.getSource()) {
             view.dispose();
             return;
         }

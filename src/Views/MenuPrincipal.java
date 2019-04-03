@@ -1,7 +1,11 @@
 package Views;
 
+import Controller.BajaController;
+import Controller.ConsultaController;
 import Controller.ModificacionController;
 import Controller.RegistroController;
+import Models.BajaModel;
+import Models.ConsultaModel;
 import Models.ModificacionModel;
 import Models.RegistroModel;
 import java.awt.event.ActionEvent;
@@ -76,6 +80,9 @@ public class MenuPrincipal extends JFrame {
 
         // TEST:
         abrirMenuRegistro();
+//        abrirMenuModificacion();
+//        abrirMenuBaja();
+//        abrirMenuConsulta();
 
     }
 
@@ -96,12 +103,18 @@ public class MenuPrincipal extends JFrame {
     }
 
     public void abrirMenuBaja() {
-        System.out.println("Abrir Baja");
-
+        BajaView view = new BajaView();
+        BajaModel model = new BajaModel();
+        BajaController controller = new BajaController(view, model);
+        view.setController(controller);
+        view.lanzarVista();
     }
 
     public void abrirMenuConsulta() {
-        System.out.println("Abrir Consulta");
-
+        ConsultaView view = new ConsultaView();
+        ConsultaModel model = new ConsultaModel();
+        ConsultaController controller = new ConsultaController(view, model);
+        view.setController(controller);
+        view.lanzarVista();
     }
 }

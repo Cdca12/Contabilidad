@@ -1,11 +1,14 @@
 package Views;
 
+import Controller.ConsultaController;
 import javax.swing.*;
 /**
  *
  * @author Carlos Contreras
  */
 public class ConsultaView extends JDialog {
+
+    private ConsultaController controller;
 
     public ConsultaView() {
         setTitle("Consulta");
@@ -16,9 +19,16 @@ public class ConsultaView extends JDialog {
         setModal(true);
         
         // TODO: Write code
-        
-        
-        setVisible(true);
     }
     
+    public void setController(ConsultaController controller) {
+        this.controller = controller;
+        // Escuchadores
+    }
+    
+    
+    
+    public void lanzarVista() {
+        setVisible(true);
+    }
 }
