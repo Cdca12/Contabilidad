@@ -12,6 +12,7 @@ import Models.RegistroModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import utils.Rutinas;
 
 /**
  *
@@ -23,6 +24,7 @@ public class MenuPrincipal extends JFrame {
     private JMenu catalogo, polizas;
     private JMenuItem registro, modificacion, baja, consulta, captura, afectacion;
     private CuentasModel cuentasModel;
+    private JLabel icon;
 
     public MenuPrincipal() {
         super("Contabilidad");
@@ -31,6 +33,10 @@ public class MenuPrincipal extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         cuentasModel = new CuentasModel();
+        
+        icon = new JLabel(Rutinas.AjustarImagen("./src/Images/icon.png", 550, 300));
+        icon.setBounds(getWidth() / 2, getHeight() / 2, 200, 200);
+        add(icon);
 
         barraMenu = new JMenuBar();
         barraMenu.setSize(100, 100);

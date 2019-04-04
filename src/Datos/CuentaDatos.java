@@ -84,6 +84,7 @@ public class CuentaDatos {
             archivoCuentas.seek(((posicion - 1) * VALOR_RENGLON) + 42);
 //            archivoCuentas.writeChar('B');
         } catch (Exception e) {
+            System.out.println("Entra excepcion");
             return false;
         }
         return true;
