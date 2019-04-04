@@ -67,20 +67,22 @@ public class CuentaDatos {
             long posicionCuenta = archivoIndex.readLong();
             archivoCuentas.seek((posicionCuenta - 1) * VALOR_RENGLON);
             String cta = archivoCuentas.readUTF(), nombre = archivoCuentas.readUTF();
-            float saldo = archivoCuentas.readFloat(), cargo = archivoCuentas.readFloat(), abono = archivoCuentas.readFloat();
+            float saldo = archivoCuentas.readFloat(),
+                    cargo = archivoCuentas.readFloat(),
+                    abono = archivoCuentas.readFloat();
             char status = archivoCuentas.readChar();
             cuentaEncontrada = new Cuenta(cta, nombre, saldo, cargo, abono, status);
         } catch (IOException e) {
         }
-        return cuentaEncontrada;
-        // Va a regresar la cuenta o null de todas maneras si no la encuentra
+        return cuentaEncontrada; // Va a regresar la cuenta o null de todas maneras si no la encuentra
     }
 
     public boolean darDeBaja(String cuenta) {
         int posicion = busquedaBinaria(cuenta);
+            System.out.println("Me posiciono en " + ((posicion - 1) * VALOR_RENGLON) + 42);
         try {
             archivoCuentas.seek(((posicion - 1) * VALOR_RENGLON) + 42);
-            archivoCuentas.writeChar('B');
+//            archivoCuentas.writeChar('B');
         } catch (Exception e) {
             return false;
         }

@@ -2,6 +2,7 @@ package Controller;
 
 import Datos.CuentaDatos;
 import Entities.Cuenta;
+import Models.CuentasModel;
 import Models.RegistroModel;
 import Views.RegistroView;
 import java.awt.event.*;
@@ -14,19 +15,25 @@ public class RegistroController implements ActionListener {
 
     private RegistroModel model;
     private RegistroView view;
+    private CuentasModel cuentasModel;
 
-    public RegistroController(RegistroModel model, RegistroView view) {
+    public RegistroController(RegistroModel model, RegistroView view, CuentasModel cuentasModel) {
         this.model = model;
         this.view = view;
+        this.cuentasModel = cuentasModel;
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource() == view.btnAñadir) {
-            if (!validarCampos()) {
+            if (!view.validarCampos()) {
                 return;
             }
             // Validar existencia cuentas
+            if (cuentasModel.existeCuenta(view.txtCuenta.getText())) {
+                view.mostrarMensajeError("Ya existe ese número de cuenta");
+                return;
+            }
             model.añadirCuenta(new Cuenta(
                     view.txtCuenta.getText(),
                     view.txtNombre.getText(),
@@ -40,25 +47,6 @@ public class RegistroController implements ActionListener {
             view.dispose();
             return;
         }
-    }
-
-    public boolean validarCampos() {
-        if (view.txtCuenta.getText().length() != 6) {
-            view.mostrarMensajeError("Favor de ingresar una cuenta de 6 dígitos");
-            view.txtCuenta.requestFocus();
-            return false;
-        }
-        if (view.txtNombre.getText().length() == 0) {
-            view.mostrarMensajeError("Favor de ingresar un nombre válido");
-            view.txtNombre.requestFocus();
-            return false;
-        }
-        if (view.txtSaldo.getText().length() == 0) {
-            view.mostrarMensajeError("Favor de ingresar un saldo al usuario");
-            view.txtSaldo.requestFocus();
-            return false;
-        }
-        return true;
     }
 
 }

@@ -29,6 +29,10 @@ public class RegistroModel {
         cuentaDatos.insertarRegistro(cuenta);
         return true;
     }
+    
+    public boolean existeCuenta(String cuenta) {
+        return cuentaDatos.existeCuenta(cuenta);
+    }
 
     public void obtenerCuenta(String cuenta) {
 

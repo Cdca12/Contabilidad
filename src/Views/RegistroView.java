@@ -68,16 +68,35 @@ public class RegistroView extends JDialog {
         btnAñadir.addActionListener(controller);
         btnCancelar.addActionListener(controller);
     }
-    
+
     public void mostrarMensajeError(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
     }
-    
+
     public void limpiarCampos() {
         txtCuenta.setText("");
         txtNombre.setText("");
         txtSaldo.setText("");
         txtCuenta.requestFocus();
+    }
+
+    public boolean validarCampos() {
+        if (txtCuenta.getText().length() != 6) {
+            mostrarMensajeError("Favor de ingresar una cuenta de 6 dígitos");
+            txtCuenta.requestFocus();
+            return false;
+        }
+        if (txtNombre.getText().length() == 0) {
+            mostrarMensajeError("Favor de ingresar un nombre válido");
+            txtNombre.requestFocus();
+            return false;
+        }
+        if (txtSaldo.getText().length() == 0) {
+            mostrarMensajeError("Favor de ingresar un saldo al usuario");
+            txtSaldo.requestFocus();
+            return false;
+        }
+        return true;
     }
 
 }

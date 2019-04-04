@@ -1,6 +1,7 @@
 package Controller;
 
 import Models.BajaModel;
+import Models.CuentasModel;
 import Views.BajaView;
 import java.awt.event.*;
 import javax.swing.JOptionPane;
@@ -13,24 +14,27 @@ public class BajaController implements ActionListener {
 
     private BajaView view;
     private BajaModel model;
+    private CuentasModel cuentasModel;
 
-    public BajaController(BajaView view, BajaModel model) {
+    public BajaController(BajaView view, BajaModel model, CuentasModel cuentasModel) {
         this.view = view;
         this.model = model;
+        this.cuentasModel = cuentasModel;
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (view.btnBuscar == evt.getSource()) {
             if (view.txtCuenta.getText().length() != 6) {
-                view.mostrarMensajeError("Favor de insertar un número de cuenta");
+                view.mostrarMensajeError("Favor de ingresar una cuenta de 6 dígitos");
                 return;
             }
-            if (!model.existeCuenta(view.txtCuenta.getText())) {
+            if (!cuentasModel.existeCuenta(view.txtCuenta.getText())) {
                 view.mostrarMensajeError("No existe ese número de cuenta");
                 return;
             }
             view.btnBaja.setEnabled(true);
+            view.btnBaja.requestFocus();
             System.out.println("Se encontró");
             return;
         }
@@ -43,7 +47,6 @@ public class BajaController implements ActionListener {
                 return;
             }
             JOptionPane.showMessageDialog(view, "La cuenta ha sido dada de baja correctamente");
-            // Mensaje que diga "La Cuenta se ha dado de baja correctamente" (? Fuera cambiar de JDialog a JFrame
             return;
         }
         if (view.btnCancelar == evt.getSource()) {

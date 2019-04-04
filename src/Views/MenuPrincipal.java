@@ -6,6 +6,7 @@ import Controller.ModificacionController;
 import Controller.RegistroController;
 import Models.BajaModel;
 import Models.ConsultaModel;
+import Models.CuentasModel;
 import Models.ModificacionModel;
 import Models.RegistroModel;
 import java.awt.event.ActionEvent;
@@ -21,6 +22,7 @@ public class MenuPrincipal extends JFrame {
     private JMenuBar barraMenu;
     private JMenu catalogo, polizas;
     private JMenuItem registro, modificacion, baja, consulta, captura, afectacion;
+    private CuentasModel cuentasModel;
 
     public MenuPrincipal() {
         super("Contabilidad");
@@ -28,6 +30,7 @@ public class MenuPrincipal extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        cuentasModel = new CuentasModel();
 
         barraMenu = new JMenuBar();
         barraMenu.setSize(100, 100);
@@ -76,6 +79,7 @@ public class MenuPrincipal extends JFrame {
         barraMenu.add(polizas);
 
         // TODO: Añadir imagen central
+        
         setVisible(true);
 
         // TEST:
@@ -89,7 +93,7 @@ public class MenuPrincipal extends JFrame {
     public void abrirMenuRegistro() {
         RegistroView view = new RegistroView();
         RegistroModel model = new RegistroModel();
-        RegistroController controller = new RegistroController(model, view);
+        RegistroController controller = new RegistroController(model, view, cuentasModel);
         view.setController(controller);
         view.lanzarVista();
     }
@@ -105,7 +109,7 @@ public class MenuPrincipal extends JFrame {
     public void abrirMenuBaja() {
         BajaView view = new BajaView();
         BajaModel model = new BajaModel();
-        BajaController controller = new BajaController(view, model);
+        BajaController controller = new BajaController(view, model, cuentasModel);
         view.setController(controller);
         view.lanzarVista();
     }

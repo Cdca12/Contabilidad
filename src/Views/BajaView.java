@@ -71,10 +71,12 @@ public class BajaView extends JDialog {
         if (confirmar == 2) {
             txtCuenta.setText("");
             txtCuenta.requestFocus();
+            btnBaja.setEnabled(false);
             return false;
         }
         txtCuenta.setText("");
         txtCuenta.requestFocus();
+        btnBaja.setEnabled(false);
         return true;
     }
 
