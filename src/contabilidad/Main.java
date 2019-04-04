@@ -1,6 +1,7 @@
 package contabilidad;
 
 import Views.MenuPrincipal;
+import utils.Tema;
 
 /**
  *
@@ -9,6 +10,7 @@ import Views.MenuPrincipal;
 public class Main {
 
     public static void main(String[] args) {
+        Tema.cambiarTema();
         new MenuPrincipal();
     }
     

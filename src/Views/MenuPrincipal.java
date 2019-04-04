@@ -79,9 +79,9 @@ public class MenuPrincipal extends JFrame {
         setVisible(true);
 
         // TEST:
-        abrirMenuRegistro();
+//        abrirMenuRegistro();
 //        abrirMenuModificacion();
-//        abrirMenuBaja();
+        abrirMenuBaja();
 //        abrirMenuConsulta();
 
     }
