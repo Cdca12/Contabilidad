@@ -6,7 +6,7 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 /**
  *
- * @author cdca1
+ * @author Carlos Contreras
  */
 public class Tema {
 

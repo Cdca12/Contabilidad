@@ -1,7 +1,7 @@
 package Controller;
 
 import Datos.CuentaDatos;
-import Models.Cuenta;
+import Entities.Cuenta;
 import Models.RegistroModel;
 import Views.RegistroView;
 import java.awt.event.*;

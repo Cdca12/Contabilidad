@@ -23,7 +23,6 @@ public class ModificacionView extends JDialog {
         setResizable(false);
         setModal(true);
 
-        // TODO: Write code
         lbCuenta = new JLabel("Cuenta");
         lbCuenta.setBounds(50, 30, 50, 20);
         add(lbCuenta);

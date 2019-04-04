@@ -1,5 +1,6 @@
 package Models;
 
+import Entities.Cuenta;
 import Datos.CuentaDatos;
 
 /**
@@ -9,12 +10,13 @@ import Datos.CuentaDatos;
 public class RegistroModel {
 
     private CuentaDatos cuentaDatos; // Usado para manipular datos, escribir y recuperar del archivo .dat
+    public String mensajeError;
  
     public RegistroModel() {
         cuentaDatos = new CuentaDatos();
     }
 
-    public void añadirCuenta(Cuenta cuenta) {
+    public boolean añadirCuenta(Cuenta cuenta) {
         // validar que no exista, etc
         String cuentaAux = cuenta.getCuenta();
         String cuentaPadre = cuentaAux.substring(0, 2);
@@ -25,6 +27,7 @@ public class RegistroModel {
 
         // Escribir 
         cuentaDatos.insertarRegistro(cuenta);
+        return true;
     }
 
     public void obtenerCuenta(String cuenta) {

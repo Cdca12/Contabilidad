@@ -37,6 +37,7 @@ public class BajaView extends JDialog {
 
         btnBaja = new JButton("Baja");
         btnBaja.setBounds(btnBuscar.getX() + btnBuscar.getWidth() + 5, 170, 90, 30);
+        btnBaja.setEnabled(false);
         add(btnBaja);
 
         btnCancelar = new JButton("Cancelar");
@@ -55,6 +56,26 @@ public class BajaView extends JDialog {
 
     public void lanzarVista() {
         setVisible(true);
+    }
+
+    public void mostrarMensajeError(String mensajeError) {
+        JOptionPane.showMessageDialog(this, mensajeError);
+    }
+
+    public boolean confirmarBaja() {
+        int confirmar = JOptionPane.showConfirmDialog(this, "¿Seguro que desea dar de baja la cuenta " + txtCuenta.getText() + "?");
+        if (confirmar == 1) {
+            txtCuenta.requestFocus();
+            return false;
+        }
+        if (confirmar == 2) {
+            txtCuenta.setText("");
+            txtCuenta.requestFocus();
+            return false;
+        }
+        txtCuenta.setText("");
+        txtCuenta.requestFocus();
+        return true;
     }
 
 }

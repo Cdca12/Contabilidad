@@ -1,6 +1,6 @@
 package Datos;
 
-import Models.Cuenta;
+import Entities.Cuenta;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,7 +15,7 @@ import utils.Rutinas;
  */
 public class CuentaDatos {
 
-    final static int VALOR_RENGLON = 54; // Longitud cada renglon = 54 bytes
+    final static int VALOR_RENGLON = 44; // Longitud cada renglon = 44 bytes
 
     RandomAccessFile archivoCuentas, archivoIndex;
 
@@ -32,28 +32,62 @@ public class CuentaDatos {
         }
     }
 
-    public void insertarRegistro(Cuenta cuenta) {
+    public boolean insertarRegistro(Cuenta cuenta) {
         try {
             archivoCuentas.seek(archivoCuentas.length()); // Me posiciono a la última posición
             archivoCuentas.writeUTF(Rutinas.PonBlancos(cuenta.getCuenta(), 6));     // String(6) + length (2)  = 8 bytes
-            archivoCuentas.writeUTF(Rutinas.PonBlancos(cuenta.getNombre(), 30));    // String(30) + length(2) = 32 bytes
+            archivoCuentas.writeUTF(Rutinas.PonBlancos(cuenta.getNombre(), 20));    // String(20) + length(2) = 22 bytes
             archivoCuentas.writeFloat(cuenta.getSaldo());                           // float(4) = 4 bytes
             archivoCuentas.writeFloat(cuenta.getCargo());                           // float(4) = 4 bytes
             archivoCuentas.writeFloat(cuenta.getAbono());                           // float(4) = 4 bytes
             archivoCuentas.writeChar(cuenta.getStatus());                           // char(2) = 2 bytes
-            //  Total = 54 bytes
+            //  Total = 44 bytes
             // Indexar
             archivoIndex.seek(archivoIndex.length());
             archivoIndex.writeUTF(Rutinas.PonBlancos(cuenta.getCuenta(), 6));   // 8 bytes
             archivoIndex.writeLong(archivoCuentas.length() / VALOR_RENGLON);    // 8 bytes	
-            quickSort(1, (int) (archivoIndex.length() / 16));   // Ordenar indices, como en bd
+            quickSort(1, (int) (archivoIndex.length() / 16));   // Ordenar indices, como en una bd
         } catch (IOException ex) {
-            Logger.getLogger(CuentaDatos.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-        System.out.println("Se insertó la cuenta");
+        return true;
     }
 
-    public int busquedaBinaria(String cuenta) {
+    public boolean existeCuenta(String cuenta) {
+        int posicion = busquedaBinaria(cuenta);
+        return posicion == -1 ? false : true;
+    }
+
+    public Cuenta obtenerCuenta(String cuenta) {
+        int posicion = busquedaBinaria(cuenta);
+        Cuenta cuentaEncontrada = null;
+        try {
+            archivoIndex.seek((posicion - 1) * 16);
+            archivoIndex.readUTF();
+            long posicionCuenta = archivoIndex.readLong();
+            archivoCuentas.seek((posicionCuenta - 1) * VALOR_RENGLON);
+            String cta = archivoCuentas.readUTF(), nombre = archivoCuentas.readUTF();
+            float saldo = archivoCuentas.readFloat(), cargo = archivoCuentas.readFloat(), abono = archivoCuentas.readFloat();
+            char status = archivoCuentas.readChar();
+            cuentaEncontrada = new Cuenta(cta, nombre, saldo, cargo, abono, status);
+        } catch (IOException e) {
+        }
+        return cuentaEncontrada;
+        // Va a regresar la cuenta o null de todas maneras si no la encuentra
+    }
+
+    public boolean darDeBaja(String cuenta) {
+        int posicion = busquedaBinaria(cuenta);
+        try {
+            archivoCuentas.seek(((posicion - 1) * VALOR_RENGLON) + 42);
+            archivoCuentas.writeChar('B');
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    private int busquedaBinaria(String cuenta) {
         try {
             String cuentaActual;
             int largo = (int) (archivoIndex.length() / 16), inferior = 1, mitad, superior = largo;
@@ -78,7 +112,7 @@ public class CuentaDatos {
 
     }
 
-    public void quickSort(int limIzq, int limDer) {
+    private void quickSort(int limIzq, int limDer) {
         try {
             int i = limIzq, d = limDer, m = (i + d) / 2;
             archivoIndex.seek((m - 1) * 16);
@@ -105,7 +139,7 @@ public class CuentaDatos {
                     archivoIndex.seek((d - 1) * 16);
                     archivoIndex.writeUTF(izq);
                     archivoIndex.writeLong(d);
-                    
+
                     archivoIndex.seek((i - 1) * 16);
                     archivoIndex.writeUTF(der);
                     archivoIndex.writeLong(i);
