@@ -68,19 +68,17 @@ public class BajaView extends JDialog {
 
     public boolean confirmarBaja() {
         int confirmar = JOptionPane.showConfirmDialog(this, "¿Seguro que desea dar de baja la cuenta " + txtCuenta.getText() + "?");
-        if (confirmar == 1) {
-            System.out.println("No");
+        if (confirmar == 1) { // No
             txtCuenta.requestFocus();
             return false;
         }
-        if (confirmar == 2) {
-            System.out.println("Cancelar");
+        if (confirmar == 2) { // Cancelar
             txtCuenta.setText("");
             txtCuenta.requestFocus();
             btnBaja.setEnabled(false);
             return false;
         }
-        System.out.println("Si");
+        // Si
         txtCuenta.requestFocus();
         btnBaja.setEnabled(false);
         return true;

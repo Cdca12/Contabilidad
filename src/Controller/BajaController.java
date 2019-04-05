@@ -40,7 +40,6 @@ public class BajaController implements ActionListener {
             }
             view.btnBaja.setEnabled(true);
             view.btnBaja.requestFocus();
-            System.out.println("Se encontró");
             return;
         }
         if (view.btnBaja == evt.getSource()) {
