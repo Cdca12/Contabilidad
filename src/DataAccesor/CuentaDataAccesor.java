@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import utils.Rutinas;
 
 /**
@@ -33,10 +35,14 @@ public class CuentaDataAccesor {
     
     public boolean estaDadoDeBaja(String cuenta) {
         int posicion = this.busquedaBinaria(cuenta);
-        if (obtenerCuenta(cuenta).getStatus() == 'B') {
-            return true;
+        char c = 0;
+        try {
+            archivoCuentas.seek(((posicion - 1) * VALOR_RENGLON) + 42);
+            c = archivoCuentas.readChar();
+        } catch (IOException ex) {
+            System.out.println("Excepcion");
         }
-        return false;
+        return c == 'B' ? true : false;
     }
 
     public boolean limpiarArchivos() {
@@ -154,7 +160,7 @@ public class CuentaDataAccesor {
         return datosTablaCuentas;
     }
 
-    private int busquedaBinaria(String cuenta) {
+    public int busquedaBinaria(String cuenta) {
         try {
             String cuentaActual;
             int largo = (int) (archivoIndex.length() / 16), inferior = 1, mitad, superior = largo;

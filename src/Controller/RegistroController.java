@@ -31,12 +31,13 @@ public class RegistroController implements ActionListener {
             if (!view.validarCampos()) {
                 return;
             }
-            // Validar existencia cuentas
             if (cuentasModel.existeCuenta(view.txtCuenta.getText())) {
                 view.mostrarMensaje("Ya existe ese número de cuenta");
                 return;
             }
-            
+            if(cuentasModel.estaDadoDeBaja(view.txtCuenta.getText())) {
+                view.mostrarMensaje("Ese número de cuenta ya existe, dado de baja");
+            }
             Mensaje mensaje = new Mensaje(); // Modelo un mensaje para error específico
             if (!model.validarCuenta(view.txtCuenta.getText(), mensaje)) {
                 view.mostrarMensaje(mensaje.textoMensaje);
