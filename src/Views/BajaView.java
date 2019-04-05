@@ -57,6 +57,11 @@ public class BajaView extends JDialog {
         setVisible(true);
     }
 
+    public void limpiarCampos() {
+        txtCuenta.setText("");
+        txtCuenta.requestFocus();
+    }
+
     public void mostrarMensaje(String mensajeError) {
         JOptionPane.showMessageDialog(this, mensajeError);
     }

@@ -38,6 +38,11 @@ public class ModificacionController implements ActionListener {
                 view.mostrarMensaje("No se pudo obtener la cuenta");
                 return;
             }
+            if (cuentaAux.getStatus() == 'B') {
+                view.mostrarMensaje("Esta cuenta está dada de baja. No se puede modificar");
+                view.limpiarCampos();
+                return;
+            }
             System.out.println("Se encontró");
             view.habilitarEdicion(cuentaAux);
             return;

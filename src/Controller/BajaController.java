@@ -35,6 +35,7 @@ public class BajaController implements ActionListener {
             }
             if (cuentasModel.estaDadoDeBaja(view.txtCuenta.getText())) {
                 view.mostrarMensaje("La cuenta ya está dada de baja");
+                view.limpiarCampos();
                 return;
             }
             view.btnBaja.setEnabled(true);
