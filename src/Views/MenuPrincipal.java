@@ -84,14 +84,12 @@ public class MenuPrincipal extends JFrame {
         polizas.add(afectacion);
         barraMenu.add(polizas);
 
-        // TODO: Añadir imagen central
-        
         setVisible(true);
 
         // TEST:
 //        abrirMenuRegistro();
 //        abrirMenuModificacion();
-        abrirMenuBaja();
+//        abrirMenuBaja();
 //        abrirMenuConsulta();
 
     }
@@ -107,7 +105,7 @@ public class MenuPrincipal extends JFrame {
     public void abrirMenuModificacion() {
         ModificacionView view = new ModificacionView();
         ModificacionModel model = new ModificacionModel();
-        ModificacionController controller = new ModificacionController(view, model);
+        ModificacionController controller = new ModificacionController(view, model, cuentasModel);
         view.setController(controller);
         view.lanzarVista();
     }

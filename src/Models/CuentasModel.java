@@ -24,6 +24,10 @@ public class CuentasModel {
         return cuentaDatos.obtenerCuenta(cuenta);
     }
     
+    public boolean darBajaTest(String cuenta) {
+        return cuentaDatos.darDeBaja(cuenta);
+    }
+    
     
     
     

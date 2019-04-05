@@ -9,7 +9,7 @@ import Datos.CuentaDatos;
  */
 public class BajaModel {
 
-    CuentaDatos cuentaDatos;
+    private CuentaDatos cuentaDatos;
     
     public BajaModel() {
         cuentaDatos = new CuentaDatos();

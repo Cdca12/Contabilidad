@@ -55,23 +55,29 @@ public class CuentaDatos {
 
     public boolean existeCuenta(String cuenta) {
         int posicion = busquedaBinaria(cuenta);
+        System.out.println("Posicion = " + posicion);
         return posicion == -1 ? false : true;
     }
 
     public Cuenta obtenerCuenta(String cuenta) {
         int posicion = busquedaBinaria(cuenta);
         Cuenta cuentaEncontrada = null;
+        long posicionCuenta;
+        float saldo, cargo, abono;
+        String cuentaAux;
+        String nombre;
         try {
             archivoIndex.seek((posicion - 1) * 16);
             archivoIndex.readUTF();
-            long posicionCuenta = archivoIndex.readLong();
+            posicionCuenta = archivoIndex.readLong();
             archivoCuentas.seek((posicionCuenta - 1) * VALOR_RENGLON);
-            String cta = archivoCuentas.readUTF(), nombre = archivoCuentas.readUTF();
-            float saldo = archivoCuentas.readFloat(),
-                    cargo = archivoCuentas.readFloat(),
-                    abono = archivoCuentas.readFloat();
+            cuentaAux = archivoCuentas.readUTF();
+            nombre = archivoCuentas.readUTF();
+            saldo = archivoCuentas.readFloat();
+            cargo = archivoCuentas.readFloat();
+            abono = archivoCuentas.readFloat();
             char status = archivoCuentas.readChar();
-            cuentaEncontrada = new Cuenta(cta, nombre, saldo, cargo, abono, status);
+            cuentaEncontrada = new Cuenta(cuentaAux, nombre, saldo, cargo, abono, status);
         } catch (IOException e) {
         }
         return cuentaEncontrada; // Va a regresar la cuenta o null de todas maneras si no la encuentra
@@ -79,15 +85,21 @@ public class CuentaDatos {
 
     public boolean darDeBaja(String cuenta) {
         int posicion = busquedaBinaria(cuenta);
-            System.out.println("Me posiciono en " + ((posicion - 1) * VALOR_RENGLON) + 42);
         try {
             archivoCuentas.seek(((posicion - 1) * VALOR_RENGLON) + 42);
-//            archivoCuentas.writeChar('B');
+            archivoCuentas.writeChar('B');
         } catch (Exception e) {
-            System.out.println("Entra excepcion");
             return false;
         }
         return true;
+    }
+
+    public int totalRegistros() {
+        try {
+            return (int) (archivoCuentas.length() / VALOR_RENGLON);
+        } catch (IOException ex) {
+            return 0;
+        }
     }
 
     private int busquedaBinaria(String cuenta) {

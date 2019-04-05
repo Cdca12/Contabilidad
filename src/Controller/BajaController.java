@@ -46,6 +46,7 @@ public class BajaController implements ActionListener {
                 view.mostrarMensajeError("No se pudo dar de baja");
                 return;
             }
+            view.txtCuenta.setText("");
             JOptionPane.showMessageDialog(view, "La cuenta ha sido dada de baja correctamente");
             return;
         }

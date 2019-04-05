@@ -1,6 +1,7 @@
 package Views;
 
 import Controller.ModificacionController;
+import Entities.Cuenta;
 import javax.swing.*;
 import java.awt.event.*;
 
@@ -46,6 +47,7 @@ public class ModificacionView extends JDialog {
 
         btnGuardar = new JButton("Guardar");
         btnGuardar.setBounds(btnBuscar.getX() + btnBuscar.getWidth() + 5, 170, 90, 30);
+        btnGuardar.setEnabled(false);
         add(btnGuardar);
 
         btnCancelar = new JButton("Cancelar");
@@ -65,10 +67,17 @@ public class ModificacionView extends JDialog {
         setVisible(true);
     }
 
-    public void buscarCuenta() {
+    public void mostrarMensajeError(String mensajeError) {
+        JOptionPane.showMessageDialog(this, mensajeError);
+    }
+
+    public void habilitarEdicion(Cuenta cuenta) {
+        btnGuardar.setEnabled(true);
         txtNombre.setEnabled(true);
-        txtNombre.setText(txtCuenta.getText());
+        txtNombre.setText(cuenta.getNombre().trim());
         txtNombre.requestFocus();
     }
+    
+    
 
 }

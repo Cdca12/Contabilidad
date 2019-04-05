@@ -30,12 +30,4 @@ public class RegistroModel {
         return true;
     }
     
-    public boolean existeCuenta(String cuenta) {
-        return cuentaDatos.existeCuenta(cuenta);
-    }
-
-    public void obtenerCuenta(String cuenta) {
-
-    }
-
 }
