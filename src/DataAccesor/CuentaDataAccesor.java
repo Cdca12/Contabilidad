@@ -46,6 +46,11 @@ public class CuentaDataAccesor {
 
     public boolean limpiarArchivos() {
         // TODO: Limpiar archivo .dat
+        try {
+            archivoCuentas.close();
+            archivoIndex.close();
+        } catch (IOException ex) {
+        }
         return true;
     }
 
@@ -71,9 +76,7 @@ public class CuentaDataAccesor {
     }
 
     public boolean existeCuenta(String cuenta) {
-        int posicion = busquedaBinaria(cuenta);
-        System.out.println("Posicion = " + posicion);
-        return posicion == -1 ? false : true;
+        return busquedaBinaria(cuenta) == -1 ? false : true;
     }
 
     public Cuenta obtenerCuenta(String cuenta) {
@@ -165,7 +168,6 @@ public class CuentaDataAccesor {
             int largo = (int) (archivoIndex.length() / 16), inferior = 1, mitad, superior = largo;
             while (inferior <= superior) {
                 mitad = (inferior + superior) / 2;
-                System.out.println(largo + " " + inferior + " " + superior + " " + mitad);
                 archivoIndex.seek((mitad - 1) * 16);
                 cuentaActual = archivoIndex.readUTF();
                 if (cuenta.compareTo(cuentaActual) == 0) {

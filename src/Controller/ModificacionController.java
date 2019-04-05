@@ -43,7 +43,6 @@ public class ModificacionController implements ActionListener {
                 view.limpiarCampos();
                 return;
             }
-            System.out.println("Se encontró");
             view.habilitarEdicion(cuentaAux);
             return;
         }

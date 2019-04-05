@@ -1,11 +1,13 @@
 package Views;
 
 import Controller.BajaController;
+import Controller.CapturaPolizasController;
 import Controller.ConsultaController;
 import Controller.ModificacionController;
 import Controller.RegistroController;
 import DataAccesor.CuentaDataAccesor;
 import Models.BajaModel;
+import Models.CapturaPolizasModel;
 import Models.ConsultaModel;
 import Models.CuentasModel;
 import Models.ModificacionModel;
@@ -67,16 +69,21 @@ public class MenuPrincipal extends JFrame {
         barraMenu.add(catalogo);
 
         polizas = new JMenu("Pólizas");
-        captura = new JMenuItem("Captura");
-        afectacion = new JMenuItem("Afectación");
+        captura = new JMenuItem("Captura de pólizas");
+        captura.addActionListener(evt -> {
+            abrirMenuCapturaPolizas();
+        });
         polizas.add(captura);
-        polizas.add(afectacion);
         barraMenu.add(polizas);
 
         otros = new JMenu("Otros");
         limpiar = new JMenuItem("Limpiar archivos");
         limpiar.addActionListener((evt) -> {
-            cuentasModel.limpiarArchivos();   // TODO: Limpiar archivo
+            if (cuentasModel.limpiarArchivos()) {
+                JOptionPane.showMessageDialog(this, "Los archivos se han limpiado exitosamente");
+            } else {
+                JOptionPane.showMessageDialog(this, "Hubo un error al intentar limpiar los archivos");
+            }
         });
         otros.add(limpiar);
         barraMenu.add(otros);
@@ -112,6 +119,14 @@ public class MenuPrincipal extends JFrame {
         ConsultaView view = new ConsultaView();
         ConsultaModel model = new ConsultaModel();
         ConsultaController controller = new ConsultaController(view, model, cuentasModel);
+        view.setController(controller);
+        view.lanzarVista();
+    }
+
+    public void abrirMenuCapturaPolizas() {
+        CapturaPolizasView view = new CapturaPolizasView();
+        CapturaPolizasModel model = new CapturaPolizasModel();
+        CapturaPolizasController controller = new CapturaPolizasController(view, model, cuentasModel);
         view.setController(controller);
         view.lanzarVista();
     }
