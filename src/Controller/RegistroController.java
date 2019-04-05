@@ -2,10 +2,12 @@ package Controller;
 
 import DataAccesor.CuentaDataAccesor;
 import Entities.Cuenta;
+import Entities.Mensaje;
 import Models.CuentasModel;
 import Models.RegistroModel;
 import Views.RegistroView;
 import java.awt.event.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,16 +33,17 @@ public class RegistroController implements ActionListener {
             }
             // Validar existencia cuentas
             if (cuentasModel.existeCuenta(view.txtCuenta.getText())) {
-                view.mostrarMensajeError("Ya existe ese número de cuenta");
+                view.mostrarMensaje("Ya existe ese número de cuenta");
                 return;
             }
             
-            
-            
-            
-            
-            model.añadirCuenta(new Cuenta(view.txtCuenta.getText(), view.txtNombre.getText(), Float.parseFloat(view.txtSaldo.getText()), 0f, 0f, 'A'
-            ));
+            Mensaje mensaje = new Mensaje(); // Modelo un mensaje para error específico
+            if (!model.validarCuenta(view.txtCuenta.getText(), mensaje)) {
+                view.mostrarMensaje(mensaje.textoMensaje);
+                return;
+            }
+            model.añadirCuenta(new Cuenta(view.txtCuenta.getText(), view.txtNombre.getText(), Float.parseFloat(view.txtSaldo.getText()), 0f, 0f, 'A'));
+            view.mostrarMensaje("La cuenta se ha añadido con éxito");
             view.limpiarCampos();
             return;
         }
@@ -49,5 +52,7 @@ public class RegistroController implements ActionListener {
             return;
         }
     }
+    
+    
 
 }
