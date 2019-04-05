@@ -87,4 +87,14 @@ public class Rutinas {
         }
     }
 
+    // Añadido: Carlos Contreras
+    public static boolean esEntero(String cadena) {
+        try {
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
+
 }

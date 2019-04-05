@@ -32,7 +32,7 @@ public class CuentaDataAccesor {
             System.out.println("No se pudo abrir el archivo de Index");
         }
     }
-    
+
     public boolean estaDadoDeBaja(String cuenta) {
         int posicion = this.busquedaBinaria(cuenta);
         char c = 0;
@@ -40,7 +40,6 @@ public class CuentaDataAccesor {
             archivoCuentas.seek(((posicion - 1) * VALOR_RENGLON) + 42);
             c = archivoCuentas.readChar();
         } catch (IOException ex) {
-            System.out.println("Excepcion");
         }
         return c == 'B' ? true : false;
     }

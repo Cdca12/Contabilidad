@@ -4,6 +4,7 @@ import Controller.RegistroController;
 import Entities.Cuenta;
 import javax.swing.*;
 import java.awt.event.*;
+import utils.Rutinas;
 
 /**
  *
@@ -84,6 +85,12 @@ public class RegistroView extends JDialog {
         if (txtCuenta.getText().length() != 6) {
             mostrarMensaje("Favor de ingresar una cuenta de 6 dígitos");
             txtCuenta.requestFocus();
+            txtCuenta.requestFocus();
+            return false;
+        }
+        if (!Rutinas.esEntero(txtCuenta.getText())) {
+            mostrarMensaje("Favor de ingresar sólo números enteros en el número de cuenta");
+            txtCuenta.requestFocus();
             return false;
         }
         if (txtNombre.getText().length() == 0) {
@@ -91,8 +98,18 @@ public class RegistroView extends JDialog {
             txtNombre.requestFocus();
             return false;
         }
+        if (Rutinas.esEntero(txtNombre.getText())) {
+            mostrarMensaje("Favor de ingresar sólo letras en el nombre");
+            txtNombre.requestFocus();
+            return false;
+        }
         if (txtSaldo.getText().length() == 0) {
             mostrarMensaje("Favor de ingresar un saldo al usuario");
+            txtSaldo.requestFocus();
+            return false;
+        }
+        if (!Rutinas.esEntero(txtSaldo.getText())) {
+            mostrarMensaje("Favor de ingresar sólo números en el saldo");
             txtSaldo.requestFocus();
             return false;
         }
