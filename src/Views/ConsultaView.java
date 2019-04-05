@@ -27,8 +27,6 @@ public class ConsultaView extends JDialog {
         setLocationRelativeTo(null);
         setResizable(false);
         setModal(true);
-
-
     }
 
     public void setController(ConsultaController controller) {

@@ -37,6 +37,10 @@ public class CuentasModel {
         return cuentaDataAccesor.obtenerDatosTablaCuentas();
     }
     
+    public boolean añadirFila() {
+        
+        return true;
+    }
     
     
     

@@ -17,7 +17,6 @@ public class RegistroView extends JDialog {
     public JTextField txtCuenta, txtNombre, txtSaldo;
     public JButton btnAñadir, btnCancelar;
 
-    // TODO: Hacer que no se pueda cerrar
     public RegistroView() {
         setTitle("Registro");
         setSize(300, 250);
@@ -57,7 +56,6 @@ public class RegistroView extends JDialog {
         btnCancelar = new JButton("Cancelar");
         btnCancelar.setBounds(160, 170, 100, 30);
         add(btnCancelar);
-
     }
 
     public void lanzarVista() {
@@ -84,7 +82,6 @@ public class RegistroView extends JDialog {
     public boolean validarCampos() {
         if (txtCuenta.getText().length() != 6) {
             mostrarMensaje("Favor de ingresar una cuenta de 6 dígitos");
-            txtCuenta.requestFocus();
             txtCuenta.requestFocus();
             return false;
         }

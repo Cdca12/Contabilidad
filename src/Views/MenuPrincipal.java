@@ -87,8 +87,12 @@ public class MenuPrincipal extends JFrame {
         });
         otros.add(limpiar);
         barraMenu.add(otros);
-
+        
         setVisible(true);
+        
+        
+        // TEST
+        abrirMenuCapturaPolizas();
     }
 
     public void abrirMenuRegistro() {
