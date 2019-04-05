@@ -26,20 +26,29 @@ public class ModificacionController implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
         if (view.btnBuscar == evt.getSource()) {
             if (view.txtCuenta.getText().length() != 6) {
-                view.mostrarMensajeError("Favor de ingresar una cuenta de 6 dígitos");
+                view.mostrarMensaje("Favor de ingresar una cuenta de 6 dígitos");
                 return;
             }
             if (!cuentasModel.existeCuenta(view.txtCuenta.getText())) {
-                view.mostrarMensajeError("No existe ese número de cuenta");
+                view.mostrarMensaje("No existe ese número de cuenta");
                 return;
             }
             Cuenta cuentaAux = cuentasModel.obtenerCuenta(view.txtCuenta.getText());
+            if (cuentaAux == null) {
+                view.mostrarMensaje("No se pudo obtener la cuenta");
+                return;
+            }
             System.out.println("Se encontró");
             view.habilitarEdicion(cuentaAux);
             return;
         }
         if (view.btnGuardar == evt.getSource()) {
-            // TODO: Guardar
+            if (!model.modificarCuenta(view.txtCuenta.getText(), view.txtNombre.getText())) {
+                view.mostrarMensaje("No fue posible modificar la cuenta");
+                return;
+            }
+            view.mostrarMensaje("La cuenta ha se ha modificado correctamente");
+            view.limpiarCampos();
             return;
         }
         if (view.btnCancelar == evt.getSource()) {

@@ -4,6 +4,7 @@ import Controller.BajaController;
 import Controller.ConsultaController;
 import Controller.ModificacionController;
 import Controller.RegistroController;
+import DataAccesor.CuentaDataAccesor;
 import Models.BajaModel;
 import Models.ConsultaModel;
 import Models.CuentasModel;
@@ -21,8 +22,8 @@ import utils.Rutinas;
 public class MenuPrincipal extends JFrame {
 
     private JMenuBar barraMenu;
-    private JMenu catalogo, polizas;
-    private JMenuItem registro, modificacion, baja, consulta, captura, afectacion;
+    private JMenu catalogo, polizas, otros;
+    private JMenuItem registro, modificacion, baja, consulta, captura, afectacion, limpiar;
     private CuentasModel cuentasModel;
     private JLabel icon;
 
@@ -33,7 +34,7 @@ public class MenuPrincipal extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         cuentasModel = new CuentasModel();
-        
+
         icon = new JLabel(Rutinas.AjustarImagen("./src/Images/icon.png", 550, 300));
         icon.setBounds(getWidth() / 2, getHeight() / 2, 200, 200);
         add(icon);
@@ -44,32 +45,20 @@ public class MenuPrincipal extends JFrame {
 
         catalogo = new JMenu("Catálogo");
         registro = new JMenuItem("Registro");
-        registro.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                abrirMenuRegistro();
-            }
+        registro.addActionListener(evt -> {
+            abrirMenuRegistro(); // ActionListener -> actionPerformed
         });
         modificacion = new JMenuItem("Modificación");
-        modificacion.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                abrirMenuModificacion();
-            }
+        modificacion.addActionListener(evt -> {
+            abrirMenuModificacion();
         });
         baja = new JMenuItem("Baja");
-        baja.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                abrirMenuBaja();
-            }
+        baja.addActionListener(evt -> {
+            abrirMenuBaja();
         });
         consulta = new JMenuItem("Consulta");
-        consulta.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                abrirMenuConsulta();
-            }
+        consulta.addActionListener(evt -> {
+            abrirMenuConsulta();
         });
         catalogo.add(registro);
         catalogo.add(modificacion);
@@ -84,14 +73,15 @@ public class MenuPrincipal extends JFrame {
         polizas.add(afectacion);
         barraMenu.add(polizas);
 
+        otros = new JMenu("Otros");
+        limpiar = new JMenuItem("Limpiar archivos");
+        limpiar.addActionListener((evt) -> {
+            cuentasModel.limpiarArchivos();   // TODO: Limpiar archivo
+        });
+        otros.add(limpiar);
+        barraMenu.add(otros);
+
         setVisible(true);
-
-        // TEST:
-//        abrirMenuRegistro();
-//        abrirMenuModificacion();
-//        abrirMenuBaja();
-//        abrirMenuConsulta();
-
     }
 
     public void abrirMenuRegistro() {
@@ -121,7 +111,7 @@ public class MenuPrincipal extends JFrame {
     public void abrirMenuConsulta() {
         ConsultaView view = new ConsultaView();
         ConsultaModel model = new ConsultaModel();
-        ConsultaController controller = new ConsultaController(view, model);
+        ConsultaController controller = new ConsultaController(view, model, cuentasModel);
         view.setController(controller);
         view.lanzarVista();
     }

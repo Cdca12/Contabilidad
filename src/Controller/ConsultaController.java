@@ -1,19 +1,31 @@
 package Controller;
 
+import DataAccesor.CuentaDataAccesor;
 import Models.ConsultaModel;
+import Models.CuentasModel;
 import Views.ConsultaView;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Vector;
 
 /**
  *
  * @author Carlos Contreras
  */
 public class ConsultaController {
-    
+
     private ConsultaView view;
     private ConsultaModel model;
-    
-    public ConsultaController(ConsultaView view, ConsultaModel model) {
+    private CuentasModel cuentasModel;
+
+    public ConsultaController(ConsultaView view, ConsultaModel model, CuentasModel cuentasModel) {
         this.view = view;
         this.model = model;
+        this.cuentasModel = cuentasModel;
     }
+
+    public Vector<Vector<String>> obtenerDatosTablaCuentas() {
+        return cuentasModel.obtenerDatosTablaCuentas();
+    }
+
 }

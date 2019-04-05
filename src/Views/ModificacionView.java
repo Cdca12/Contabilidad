@@ -67,7 +67,7 @@ public class ModificacionView extends JDialog {
         setVisible(true);
     }
 
-    public void mostrarMensajeError(String mensajeError) {
+    public void mostrarMensaje(String mensajeError) {
         JOptionPane.showMessageDialog(this, mensajeError);
     }
 
@@ -77,7 +77,12 @@ public class ModificacionView extends JDialog {
         txtNombre.setText(cuenta.getNombre().trim());
         txtNombre.requestFocus();
     }
-    
-    
+
+    public void limpiarCampos() {
+        btnGuardar.setEnabled(false);
+        txtNombre.setText("");
+        txtCuenta.requestFocus();
+        txtCuenta.setText("");
+    }
 
 }

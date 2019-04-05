@@ -1,25 +1,24 @@
-package Datos;
+package DataAccesor;
 
 import Entities.Cuenta;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Vector;
 import utils.Rutinas;
 
 /**
  *
  * @author Carlos Contreras
  */
-public class CuentaDatos {
+public class CuentaDataAccesor {
 
     final static int VALOR_RENGLON = 44; // Longitud cada renglon = 44 bytes
 
     RandomAccessFile archivoCuentas, archivoIndex;
 
-    public CuentaDatos() {
+    public CuentaDataAccesor() {
         try {
             archivoCuentas = new RandomAccessFile("./src/Files/archivoCuentas.dat", "rw");
         } catch (FileNotFoundException ex) {
@@ -30,6 +29,19 @@ public class CuentaDatos {
         } catch (FileNotFoundException ex) {
             System.out.println("No se pudo abrir el archivo de Index");
         }
+    }
+    
+    public boolean estaDadoDeBaja(String cuenta) {
+        int posicion = this.busquedaBinaria(cuenta);
+        if (obtenerCuenta(cuenta).getStatus() == 'B') {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean limpiarArchivos() {
+        // TODO: Limpiar archivo .dat
+        return true;
     }
 
     public boolean insertarRegistro(Cuenta cuenta) {
@@ -94,12 +106,52 @@ public class CuentaDatos {
         return true;
     }
 
+    public boolean modificarCuenta(String cuenta, String nombre) {
+        int posicion = busquedaBinaria(cuenta);
+        long posicionCuenta;
+        try {
+            archivoIndex.seek((posicion - 1) * 16);
+            archivoIndex.readUTF();
+            posicionCuenta = archivoIndex.readLong();
+            archivoCuentas.seek((posicionCuenta - 1) * VALOR_RENGLON);
+            archivoCuentas.readUTF();
+            archivoCuentas.writeUTF(Rutinas.PonBlancos(nombre, 20)); // Escribe el nuevo nombre
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
+
+    }
+
     public int totalRegistros() {
         try {
             return (int) (archivoCuentas.length() / VALOR_RENGLON);
         } catch (IOException ex) {
             return 0;
         }
+    }
+
+    public Vector<Vector<String>> obtenerDatosTablaCuentas() {
+        Vector<Vector<String>> datosTablaCuentas = null;
+        Vector<String> cuentaActual;
+        try {
+            int totalRegistros = totalRegistros();
+            datosTablaCuentas = new Vector<Vector<String>>();
+            for (int i = 0; i < totalRegistros; i++) {
+                archivoCuentas.seek(i * VALOR_RENGLON);
+                cuentaActual = new Vector<String>();
+                cuentaActual.add(archivoCuentas.readUTF());
+                cuentaActual.add(archivoCuentas.readUTF().trim());
+                cuentaActual.add(Float.toString(archivoCuentas.readFloat()));
+                cuentaActual.add(Float.toString(archivoCuentas.readFloat()));
+                cuentaActual.add(Float.toString(archivoCuentas.readFloat()));
+                cuentaActual.add(archivoCuentas.readChar() + "");
+                datosTablaCuentas.add(cuentaActual);
+            }
+        } catch (IOException e) {
+            return null;
+        }
+        return datosTablaCuentas;
     }
 
     private int busquedaBinaria(String cuenta) {

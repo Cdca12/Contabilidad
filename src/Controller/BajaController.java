@@ -26,11 +26,15 @@ public class BajaController implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
         if (view.btnBuscar == evt.getSource()) {
             if (view.txtCuenta.getText().length() != 6) {
-                view.mostrarMensajeError("Favor de ingresar una cuenta de 6 dígitos");
+                view.mostrarMensaje("Favor de ingresar una cuenta de 6 dígitos");
                 return;
             }
             if (!cuentasModel.existeCuenta(view.txtCuenta.getText())) {
-                view.mostrarMensajeError("No existe ese número de cuenta");
+                view.mostrarMensaje("No existe ese número de cuenta");
+                return;
+            }
+            if (cuentasModel.estaDadoDeBaja(view.txtCuenta.getText())) {
+                view.mostrarMensaje("La cuenta ya está dada de baja");
                 return;
             }
             view.btnBaja.setEnabled(true);
@@ -43,7 +47,7 @@ public class BajaController implements ActionListener {
                 return;
             }
             if (!model.darDeBaja(view.txtCuenta.getText())) {
-                view.mostrarMensajeError("No se pudo dar de baja");
+                view.mostrarMensaje("No se pudo dar de baja");
                 return;
             }
             view.txtCuenta.setText("");

@@ -1,7 +1,7 @@
 package Models;
 
 import Entities.Cuenta;
-import Datos.CuentaDatos;
+import DataAccesor.CuentaDataAccesor;
 
 /**
  *
@@ -9,14 +9,14 @@ import Datos.CuentaDatos;
  */
 public class BajaModel {
 
-    private CuentaDatos cuentaDatos;
+    private CuentaDataAccesor cuentaDataAccesor;
     
     public BajaModel() {
-        cuentaDatos = new CuentaDatos();
+        cuentaDataAccesor = new CuentaDataAccesor();
     }
 
     public boolean darDeBaja(String cuenta) {
-        return cuentaDatos.darDeBaja(cuenta);
+        return cuentaDataAccesor.darDeBaja(cuenta);
     }
 
 }

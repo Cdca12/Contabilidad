@@ -1,7 +1,8 @@
 package Models;
 
-import Datos.CuentaDatos;
+import DataAccesor.CuentaDataAccesor;
 import Entities.Cuenta;
+import java.util.Vector;
 
 /**
  *
@@ -9,24 +10,33 @@ import Entities.Cuenta;
  */
 public class CuentasModel {
 
-    private CuentaDatos cuentaDatos; // Usado para manipular datos, escribir y recuperar del archivo .dat
+    private CuentaDataAccesor cuentaDataAccesor; // Usado para manipular datos, escribir y recuperar del archivo .dat
     public String mensajeError;
 
     public CuentasModel() {
-        cuentaDatos = new CuentaDatos();
+        cuentaDataAccesor = new CuentaDataAccesor();
+    }
+    
+    public boolean limpiarArchivos() {
+        return cuentaDataAccesor.limpiarArchivos();
     }
 
     public boolean existeCuenta(String cuenta) {
-        return cuentaDatos.existeCuenta(cuenta);
+        return cuentaDataAccesor.existeCuenta(cuenta);
+    }
+    
+    public boolean estaDadoDeBaja(String cuenta) {
+        return cuentaDataAccesor.estaDadoDeBaja(cuenta);
     }
 
     public Cuenta obtenerCuenta(String cuenta) {
-        return cuentaDatos.obtenerCuenta(cuenta);
+        return cuentaDataAccesor.obtenerCuenta(cuenta);
     }
     
-    public boolean darBajaTest(String cuenta) {
-        return cuentaDatos.darDeBaja(cuenta);
+    public Vector<Vector<String>> obtenerDatosTablaCuentas() {
+        return cuentaDataAccesor.obtenerDatosTablaCuentas();
     }
+    
     
     
     

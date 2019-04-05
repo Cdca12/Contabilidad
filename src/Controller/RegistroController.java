@@ -1,6 +1,6 @@
 package Controller;
 
-import Datos.CuentaDatos;
+import DataAccesor.CuentaDataAccesor;
 import Entities.Cuenta;
 import Models.CuentasModel;
 import Models.RegistroModel;
@@ -34,6 +34,11 @@ public class RegistroController implements ActionListener {
                 view.mostrarMensajeError("Ya existe ese número de cuenta");
                 return;
             }
+            
+            
+            
+            
+            
             model.añadirCuenta(new Cuenta(view.txtCuenta.getText(), view.txtNombre.getText(), Float.parseFloat(view.txtSaldo.getText()), 0f, 0f, 'A'
             ));
             view.limpiarCampos();

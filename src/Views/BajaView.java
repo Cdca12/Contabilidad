@@ -2,7 +2,6 @@ package Views;
 
 import Controller.BajaController;
 import javax.swing.*;
-import java.awt.event.*;
 
 /**
  *
@@ -58,7 +57,7 @@ public class BajaView extends JDialog {
         setVisible(true);
     }
 
-    public void mostrarMensajeError(String mensajeError) {
+    public void mostrarMensaje(String mensajeError) {
         JOptionPane.showMessageDialog(this, mensajeError);
     }
 
