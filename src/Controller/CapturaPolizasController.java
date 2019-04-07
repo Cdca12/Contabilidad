@@ -15,7 +15,7 @@ public class CapturaPolizasController implements ActionListener {
     private CapturaPolizasView view;
     private CapturaPolizasModel model;
     private CuentasModel cuentasModel;
-    public char tipo;
+    public char tipo = Polizas.ABONO;
 
     public CapturaPolizasController(CapturaPolizasView view, CapturaPolizasModel model, CuentasModel cuentasModel) {
         this.view = view;
@@ -25,20 +25,33 @@ public class CapturaPolizasController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-//        if (!view.validarCampos()) {
-//            return;
-//        }
         if (evt.getSource() == view.btnCapturar) {
-//            if (!cuentasModel.existeCuenta(view.txtCuenta.getText())) {
-//                view.mostrarMensaje("No existe ese número de cuenta");
-//                return;
-//            }
-//            if (cuentasModel.estaDadoDeBaja(view.txtCuenta.getText())) {
-//                view.mostrarMensaje("No se puede capturar pólizas de una cuenta que está dada de baja");
-//            }
+            // TODO: Validar que la póliza no exista
+            // TEST:
+            if (!view.validarCampos()) {
+                return;
+            }
+            if (!model.esSubSubCuenta(view.txtCuenta.getText())) {
+                view.mostrarMensaje("La cuenta ingresada no es una SubSubCuenta");
+                view.txtCuenta.requestFocus();
+                return;
+            }
+            if (!cuentasModel.existeCuenta(view.txtCuenta.getText())) {
+                view.mostrarMensaje("No existe ese número de cuenta");
+                return;
+            }
+            if (cuentasModel.estaDadoDeBaja(view.txtCuenta.getText())) {
+                view.mostrarMensaje("No se puede añadir pólizas de una cuenta que está dada de baja");
+                return;
+            }
             // Añadir a tabla
             view.añadirFilaAsiento();
             view.limpiarCampos();
+
+            // Actualizar las sumatorias
+            view.txtTotalAbono.setText(Integer.toString(model.obtenerTotal(view.obtenerAbonos())));
+            view.txtTotalCargo.setText(Integer.toString(model.obtenerTotal(view.obtenerCargos())));
+            view.txtBalance.setText(Integer.toString(model.obtenerBalance(Integer.parseInt(view.txtTotalAbono.getText()), Integer.parseInt(view.txtTotalCargo.getText()))));
         }
         if (evt.getSource() == view.rdBtnAbono) {
             tipo = Polizas.ABONO;
@@ -49,8 +62,21 @@ public class CapturaPolizasController implements ActionListener {
             return;
         }
         if (evt.getSource() == view.btnGuardar) {
-            view.mostrarMensaje("No se puede guardar la póliza");
-            return;
+//             TEST: Validacion
+            if (!view.validarPolizaBalanceada()) {
+                view.txtCuenta.requestFocus();
+                return;
+            }
+            if (!view.confirmarGuardarPoliza()) {
+                return;
+            }
+            if (!model.guardarPoliza(view.datosTablaPolizas)) {
+                view.mostrarMensaje("No fue posible guardar la póliza");
+                return;
+            }
+            view.limpiarDatosTabla();
+            model.imprimirPolizaTest();
+            view.mostrarMensaje("La póliza se ha guardado con éxito");
         }
     }
 

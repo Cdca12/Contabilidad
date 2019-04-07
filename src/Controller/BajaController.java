@@ -43,7 +43,7 @@ public class BajaController implements ActionListener {
             return;
         }
         if (view.btnBaja == evt.getSource()) {
-            if (!view.confirmarBaja()) {
+            if (!view.confirmarBaja(cuentasModel.obtenerCuenta(view.txtCuenta.getText()))) {
                 return;
             }
             if (!model.darDeBaja(view.txtCuenta.getText())) {
@@ -51,7 +51,7 @@ public class BajaController implements ActionListener {
                 return;
             }
             view.txtCuenta.setText("");
-            JOptionPane.showMessageDialog(view, "La cuenta ha sido dada de baja correctamente");
+            view.mostrarMensaje("La cuenta ha sido dada de baja correctamente");
             return;
         }
         if (view.btnCancelar == evt.getSource()) {

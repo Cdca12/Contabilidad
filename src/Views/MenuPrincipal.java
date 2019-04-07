@@ -25,7 +25,7 @@ public class MenuPrincipal extends JFrame {
 
     private JMenuBar barraMenu;
     private JMenu catalogo, polizas, otros;
-    private JMenuItem registro, modificacion, baja, consulta, captura, afectacion, limpiar;
+    private JMenuItem registro, modificacion, baja, consulta, captura, afectacion, afectar;
     private CuentasModel cuentasModel;
     private JLabel icon;
 
@@ -76,20 +76,17 @@ public class MenuPrincipal extends JFrame {
         polizas.add(captura);
         barraMenu.add(polizas);
 
-        otros = new JMenu("Otros");
-        limpiar = new JMenuItem("Limpiar archivos");
-        limpiar.addActionListener((evt) -> {
-            if (cuentasModel.limpiarArchivos()) {
-                JOptionPane.showMessageDialog(this, "Los archivos se han limpiado exitosamente");
-            } else {
-                JOptionPane.showMessageDialog(this, "Hubo un error al intentar limpiar los archivos");
+        afectar = new JMenuItem("Afectar cuentas");
+        afectar.addActionListener((evt) -> {
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Seguro que deseas afectar las cuentas con las pólizas guardadas?");
+            if(opcion == 1 || opcion == 2) {
+                return;
             }
         });
-        otros.add(limpiar);
-        barraMenu.add(otros);
+        polizas.add(afectar);
+        barraMenu.add(polizas);
         
         setVisible(true);
-        
         
         // TEST
         abrirMenuCapturaPolizas();

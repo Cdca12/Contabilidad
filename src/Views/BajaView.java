@@ -1,6 +1,7 @@
 package Views;
 
 import Controller.BajaController;
+import Entities.Cuenta;
 import javax.swing.*;
 
 /**
@@ -66,8 +67,8 @@ public class BajaView extends JDialog {
         JOptionPane.showMessageDialog(this, mensajeError);
     }
 
-    public boolean confirmarBaja() {
-        int confirmar = JOptionPane.showConfirmDialog(this, "¿Seguro que desea dar de baja la cuenta " + txtCuenta.getText() + "?");
+    public boolean confirmarBaja(Cuenta cuenta) {
+        int confirmar = JOptionPane.showConfirmDialog(this, "¿Seguro que desea dar de baja la cuenta " + cuenta.getCuenta() + " a nombre de  " +  cuenta.getNombre().trim() + "?");
         if (confirmar == 1) { // No
             txtCuenta.requestFocus();
             return false;

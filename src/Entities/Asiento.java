@@ -9,16 +9,25 @@ public class Asiento {
     private String poliza;
     private String cuenta;
     private char tipo;
-    private char status;
     private float importe;
 
-    public Asiento(String poliza, String cuenta, char tipo, char status, float importe) {
+    public Asiento() {
+    }
+    
+    public Asiento(String poliza, String cuenta, char tipo, float importe) {
         this.poliza = poliza;
         this.cuenta = cuenta;
         this.tipo = tipo;
         this.importe = importe;
-        this.status = status;
     }
+    
+    public Asiento(Asiento asiento) {
+        this.poliza = asiento.getPoliza();
+        this.cuenta = asiento.getCuenta();
+        this.tipo = asiento.getTipo();
+        this.importe = asiento.getImporte();
+    }
+
 
     public String getPoliza() {
         return poliza;
@@ -50,14 +59,6 @@ public class Asiento {
 
     public void setImporte(float importe) {
         this.importe = importe;
-    }
-
-    public char getStatus() {
-        return status;
-    }
-
-    public void setStatus(char status) {
-        this.status = status;
     }
 
 }
