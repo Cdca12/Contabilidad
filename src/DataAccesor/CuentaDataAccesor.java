@@ -19,10 +19,9 @@ public class CuentaDataAccesor {
 
     final static int VALOR_RENGLON_CUENTAS = 44; // Longitud cada renglon en las cuentas= 44 bytes
     final static int VALOR_RENGLON_INDICE = 16; // Longitud cada renglon en el índice = 16 bytes
-    final static int VALOR_RENGLON_POLIZAS = 21; // Longitud cada renglon en las pólizas = 19 bytes
 
-    File fileCuentas, fileIndex, filePolizas;
-    RandomAccessFile archivoCuentas, archivoIndex, archivoPolizas;
+    File fileCuentas, fileIndex;
+    RandomAccessFile archivoCuentas, archivoIndex;
 
     public CuentaDataAccesor() {
         try {
@@ -36,12 +35,6 @@ public class CuentaDataAccesor {
             archivoIndex = new RandomAccessFile(fileIndex, "rw");
         } catch (FileNotFoundException ex) {
             System.out.println("No se pudo abrir el archivo de Index");
-        }
-        try {
-            filePolizas = new File("./src/Files/archivoPolizas.dat");
-            archivoPolizas = new RandomAccessFile(filePolizas, "rw");
-        } catch (FileNotFoundException ex) {
-            System.out.println("No se pudo abrir el archivo de Pólizas");
         }
     }
 
@@ -141,14 +134,6 @@ public class CuentaDataAccesor {
         }
     }
 
-    public int totalRegistrosPolizas() {
-        try {
-            return (int) (archivoPolizas.length() / VALOR_RENGLON_POLIZAS);
-        } catch (IOException ex) {
-            return 0;
-        }
-    }
-
     public Vector<Vector<String>> obtenerDatosTablaCuentas() {
         Vector<Vector<String>> datosTablaCuentas = null;
         Vector<String> cuentaActual;
@@ -170,46 +155,6 @@ public class CuentaDataAccesor {
             return null;
         }
         return datosTablaCuentas;
-    }
-
-    public boolean guardarPoliza(Vector<Asiento> datosAsientos) {
-        Asiento asientoActual;
-        for (int i = 0; i < datosAsientos.size(); i++) {
-            asientoActual = datosAsientos.get(i);
-            try {
-                archivoPolizas.seek(archivoPolizas.length());
-                archivoPolizas.writeUTF(Rutinas.PonBlancos(asientoActual.getPoliza(), 5));
-                archivoPolizas.writeUTF(asientoActual.getCuenta());
-                archivoPolizas.writeChar(asientoActual.getTipo());
-                archivoPolizas.writeFloat(asientoActual.getImporte());
-            } catch (IOException ex) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public boolean imprimirPolizaTest() {
-        Asiento asientoActual;
-        System.out.println("Poliza\t\tCuenta\t\tTipo\t\tImporte");
-        try {
-            int totalRegistros = totalRegistrosPolizas();
-            for (int i = 0; i < totalRegistros; i++) {
-                asientoActual = new Asiento();
-                archivoPolizas.seek(i * VALOR_RENGLON_POLIZAS);
-                asientoActual.setPoliza(archivoPolizas.readUTF());
-                asientoActual.setCuenta(archivoPolizas.readUTF());
-                asientoActual.setTipo(archivoPolizas.readChar());
-                asientoActual.setImporte(archivoPolizas.readFloat());
-                System.out.println(asientoActual.getPoliza() + "\t\t"
-                        + asientoActual.getCuenta() + "\t\t"
-                        + asientoActual.getTipo() + "\t\t"
-                        + asientoActual.getImporte() + "\t\t");
-            }
-        } catch (IOException e) {
-            return false;
-        }
-        return true;
     }
 
     public int busquedaBinaria(String cuenta) {

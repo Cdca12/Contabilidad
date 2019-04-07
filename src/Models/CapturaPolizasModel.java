@@ -1,6 +1,7 @@
 package Models;
 
 import DataAccesor.CuentaDataAccesor;
+import DataAccesor.PolizaDataAccesor;
 import Entities.Asiento;
 import java.util.Vector;
 
@@ -10,10 +11,11 @@ import java.util.Vector;
  */
 public class CapturaPolizasModel {
 
-    private CuentaDataAccesor cuentaDataAccesor;
+//    private CuentaDataAccesor cuentaDataAccesor;
+    private PolizaDataAccesor polizaDataAccesor;
 
     public CapturaPolizasModel() {
-        this.cuentaDataAccesor = new CuentaDataAccesor();
+        this.polizaDataAccesor = new PolizaDataAccesor();
     }
 
     public boolean esSubSubCuenta(String cuenta) {
@@ -47,10 +49,10 @@ public class CapturaPolizasModel {
 
     public boolean guardarPoliza(Vector<Vector<String>> datosTablaPolizas) {
         Vector<Asiento> datosAsientos = convertirAAsientos(datosTablaPolizas);
-        return cuentaDataAccesor.guardarPoliza(datosAsientos);
+        return polizaDataAccesor.guardarPoliza(datosAsientos);
     }
     
     public boolean imprimirPolizaTest() {
-        return cuentaDataAccesor.imprimirPolizaTest();
+        return polizaDataAccesor.imprimirPolizaTest();
     }
 }
