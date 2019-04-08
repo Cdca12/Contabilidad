@@ -115,7 +115,7 @@ public class CapturaPolizasView extends JDialog {
         txtBalance.setEditable(false);
         txtBalance.setBounds(lbBalance.getX() + 50, 340, 100, 30);
         add(txtBalance);
-        
+
     }
 
     public void setController(CapturaPolizasController controller) {

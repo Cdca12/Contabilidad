@@ -1,6 +1,5 @@
 package Models;
 
-import Entities.Cuenta;
 import DataAccesor.CuentaDataAccesor;
 
 /**
@@ -10,7 +9,7 @@ import DataAccesor.CuentaDataAccesor;
 public class BajaModel {
 
     private CuentaDataAccesor cuentaDataAccesor;
-    
+
     public BajaModel() {
         cuentaDataAccesor = new CuentaDataAccesor();
     }

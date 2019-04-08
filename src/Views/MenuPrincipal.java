@@ -1,15 +1,7 @@
 package Views;
 
-import Controller.BajaController;
-import Controller.CapturaPolizasController;
-import Controller.ConsultaController;
-import Controller.ModificacionController;
-import Controller.RegistroController;
-import DataAccesor.CuentaDataAccesor;
-import DataAccesor.PolizaDataAccesor;
+import Controller.*;
 import Models.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
 import utils.Rutinas;
 
@@ -20,8 +12,8 @@ import utils.Rutinas;
 public class MenuPrincipal extends JFrame {
 
     private JMenuBar barraMenu;
-    private JMenu catalogo, polizas, otros;
-    private JMenuItem registro, modificacion, baja, consulta, captura, afectacion, afectar;
+    private JMenu catalogo, polizas;
+    private JMenuItem registro, modificacion, baja, consulta, captura, afectar;
     private CuentasModel cuentasModel;
     private JLabel icon;
 
@@ -89,9 +81,6 @@ public class MenuPrincipal extends JFrame {
         barraMenu.add(polizas);
 
         setVisible(true);
-
-        // TEST
-//        abrirMenuCapturaPolizas();
     }
 
     public void abrirMenuRegistro() {
@@ -120,8 +109,9 @@ public class MenuPrincipal extends JFrame {
 
     public void abrirMenuConsulta() {
         ConsultaView view = new ConsultaView();
-        ConsultaModel model = new ConsultaModel();
-        ConsultaController controller = new ConsultaController(view, model, cuentasModel);
+//        ConsultaModel model = new ConsultaModel();
+//        ConsultaController controller = new ConsultaController(view, model, cuentasModel);
+        ConsultaController controller = new ConsultaController(view, cuentasModel);
         view.setController(controller);
         view.lanzarVista();
     }

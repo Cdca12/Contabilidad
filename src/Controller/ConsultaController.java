@@ -1,11 +1,8 @@
 package Controller;
 
-import DataAccesor.CuentaDataAccesor;
-import Models.ConsultaModel;
+//import Models.ConsultaModel;
 import Models.CuentasModel;
 import Views.ConsultaView;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Vector;
 
 /**
@@ -15,12 +12,13 @@ import java.util.Vector;
 public class ConsultaController {
 
     private ConsultaView view;
-    private ConsultaModel model;
+//    private ConsultaModel model;
     private CuentasModel cuentasModel;
 
-    public ConsultaController(ConsultaView view, ConsultaModel model, CuentasModel cuentasModel) {
+//    public ConsultaController(ConsultaView view, ConsultaModel model, CuentasModel cuentasModel) {
+    public ConsultaController(ConsultaView view, CuentasModel cuentasModel) {
         this.view = view;
-        this.model = model;
+//        this.model = model;
         this.cuentasModel = cuentasModel;
     }
 

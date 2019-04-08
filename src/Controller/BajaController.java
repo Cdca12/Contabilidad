@@ -4,7 +4,6 @@ import Models.BajaModel;
 import Models.CuentasModel;
 import Views.BajaView;
 import java.awt.event.*;
-import javax.swing.JOptionPane;
 
 /**
  *

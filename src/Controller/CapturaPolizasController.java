@@ -27,7 +27,6 @@ public class CapturaPolizasController implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource() == view.btnCapturar) {
             // TODO: Validar que la póliza no exista
-            // TEST:
             if (!view.validarCampos()) {
                 return;
             }
@@ -63,7 +62,6 @@ public class CapturaPolizasController implements ActionListener {
             return;
         }
         if (evt.getSource() == view.btnGuardar) {
-//             TEST: Validacion
             if (!view.validarPolizaBalanceada()) {
                 view.txtCuenta.requestFocus();
                 return;

@@ -62,6 +62,5 @@ public class Asiento {
     public void setEstadoPoliza(char estadoPoliza) {
         this.estadoPoliza = estadoPoliza;
     }
-    
-    
+
 }

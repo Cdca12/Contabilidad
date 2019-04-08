@@ -1,9 +1,7 @@
 package Views;
 
 import Controller.RegistroController;
-import Entities.Cuenta;
 import javax.swing.*;
-import java.awt.event.*;
 import utils.Rutinas;
 
 /**

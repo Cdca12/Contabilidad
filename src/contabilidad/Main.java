@@ -13,5 +13,5 @@ public class Main {
         Tema.cambiarTema();
         new MenuPrincipal();
     }
-    
+
 }

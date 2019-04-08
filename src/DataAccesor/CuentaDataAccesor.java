@@ -7,8 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import utils.Rutinas;
 
 /**
@@ -242,7 +240,7 @@ public class CuentaDataAccesor {
         float sumaImporte = 0;
 
         int posicion = asiento.getTipo() == 'A' ? 38 : 34; // Si es abono o cargo
-        
+
         try {
             // Afectación a la CuentaPadre
             archivoCuentas.seek(((posicionCuentaPadre - 1) * VALOR_RENGLON_CUENTAS) + posicion); // Me posiciono antes del importe anterior

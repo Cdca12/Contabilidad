@@ -1,13 +1,11 @@
 package Controller;
 
-import DataAccesor.CuentaDataAccesor;
-import Entities.Cuenta;
+import Entities.*;
 import Entities.Mensaje;
 import Models.CuentasModel;
 import Models.RegistroModel;
 import Views.RegistroView;
 import java.awt.event.*;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -35,7 +33,7 @@ public class RegistroController implements ActionListener {
                 view.mostrarMensaje("Ya existe ese número de cuenta");
                 return;
             }
-            if(cuentasModel.estaDadoDeBaja(view.txtCuenta.getText())) {
+            if (cuentasModel.estaDadoDeBaja(view.txtCuenta.getText())) {
                 view.mostrarMensaje("Ese número de cuenta ya existe, dado de baja");
             }
             Mensaje mensaje = new Mensaje(); // Modelo un mensaje para error específico
@@ -53,7 +51,5 @@ public class RegistroController implements ActionListener {
             return;
         }
     }
-    
-    
 
 }

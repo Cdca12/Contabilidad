@@ -15,11 +15,11 @@ public class CuentasModel {
     public CuentasModel() {
         cuentaDataAccesor = new CuentaDataAccesor();
     }
-    
+
     public boolean existeCuenta(String cuenta) {
         return cuentaDataAccesor.existeCuenta(cuenta);
     }
-    
+
     public boolean estaDadoDeBaja(String cuenta) {
         return cuentaDataAccesor.estaDadoDeBaja(cuenta);
     }
@@ -27,13 +27,9 @@ public class CuentasModel {
     public Cuenta obtenerCuenta(String cuenta) {
         return cuentaDataAccesor.obtenerCuenta(cuenta);
     }
-    
+
     public Vector<Vector<String>> obtenerDatosTablaCuentas() {
         return cuentaDataAccesor.obtenerDatosTablaCuentas();
     }
-    
-    
-    
-    
 
 }

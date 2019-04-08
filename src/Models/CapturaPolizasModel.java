@@ -1,6 +1,5 @@
 package Models;
 
-import DataAccesor.CuentaDataAccesor;
 import DataAccesor.PolizaDataAccesor;
 import Entities.Asiento;
 import java.util.Vector;
@@ -11,7 +10,6 @@ import java.util.Vector;
  */
 public class CapturaPolizasModel {
 
-//    private CuentaDataAccesor cuentaDataAccesor;
     private PolizaDataAccesor polizaDataAccesor;
 
     public CapturaPolizasModel() {

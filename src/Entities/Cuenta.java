@@ -13,7 +13,6 @@ public class Cuenta {
     private float abono;
     private char status;
 
-
     public Cuenta(String cuenta, String nombre, float saldo, float cargo, float abono, char status) {
         this.cuenta = cuenta;
         this.nombre = nombre;
@@ -70,14 +69,5 @@ public class Cuenta {
     public void setStatus(char status) {
         this.status = status;
     }
-    
-    public String obtenerNombre() {
-        String cadena = this.nombre;
-        for (int i = this.nombre.length() - 1; true; i--) {
-            
-        }
-    }
-
-    
 
 }
