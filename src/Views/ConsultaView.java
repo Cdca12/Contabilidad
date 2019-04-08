@@ -19,6 +19,8 @@ public class ConsultaView extends JDialog {
 
     private JTable tablaResultados;
     private JScrollPane scrollPane;
+    private String[] nombreColumnas;
+    private Vector<String> vectorNombreColumnas;
 
     public ConsultaView() {
         setTitle("Consulta");
@@ -27,6 +29,9 @@ public class ConsultaView extends JDialog {
         setLocationRelativeTo(null);
         setResizable(false);
         setModal(true);
+
+        nombreColumnas = new String[]{"Cuenta", "Nombre", "Saldo", "Cargo", "Abono", "Status"};
+        vectorNombreColumnas = new Vector<>(Arrays.asList(nombreColumnas));
     }
 
     public void setController(ConsultaController controller) {
@@ -35,17 +40,15 @@ public class ConsultaView extends JDialog {
 
     public void lanzarVista() {
         generarTabla();
+        scrollPane = new JScrollPane(tablaResultados);
+        scrollPane.setBounds(10, 10, 475, 300);
+        add(scrollPane);
         setVisible(true);
     }
 
     public void generarTabla() {
-        String[] nombreColumnas = {"Cuenta", "Nombre", "Saldo", "Cargo", "Abono", "Status"};
-        Vector<String> vectorNombreColumnas = new Vector<>(Arrays.asList(nombreColumnas));
         Vector<Vector<String>> datosTablaCuentas = controller.obtenerDatosTablaCuentas();
-        
         tablaResultados = new JTable(datosTablaCuentas, vectorNombreColumnas);
-        scrollPane = new JScrollPane(tablaResultados);
-        scrollPane.setBounds(10, 10, 475, 300);
-        add(scrollPane);
     }
+
 }

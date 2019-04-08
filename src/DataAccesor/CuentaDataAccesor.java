@@ -231,4 +231,39 @@ public class CuentaDataAccesor {
             return;
         }
     }
+
+    public boolean afectarCuenta(Asiento asiento) {
+        String cuentaPadre = asiento.getCuenta().substring(0, 2) + "0000",
+                subCuenta = asiento.getCuenta().substring(0, 4) + "00",
+                subSubCuenta = asiento.getCuenta();
+        int posicionCuentaPadre = busquedaBinaria(cuentaPadre),
+                posicionSubCuenta = busquedaBinaria(subCuenta),
+                posicionSubSubCuenta = busquedaBinaria(subSubCuenta);
+        float sumaImporte = 0;
+
+        int posicion = asiento.getTipo() == 'A' ? 38 : 34; // Si es abono o cargo
+        
+        try {
+            // Afectación a la CuentaPadre
+            archivoCuentas.seek(((posicionCuentaPadre - 1) * VALOR_RENGLON_CUENTAS) + posicion); // Me posiciono antes del importe anterior
+            sumaImporte = archivoCuentas.readFloat() + asiento.getImporte(); // Leo importe anterior y lo sumo con el asiento
+            archivoCuentas.seek(((posicionCuentaPadre - 1) * VALOR_RENGLON_CUENTAS) + posicion); // Me posiciono en la columna
+            archivoCuentas.writeFloat(sumaImporte); // Escribo el nuevo importe (la suma)
+
+            // Afectación a la SubCuenta
+            archivoCuentas.seek(((posicionSubCuenta - 1) * VALOR_RENGLON_CUENTAS) + posicion);
+            sumaImporte = archivoCuentas.readFloat() + asiento.getImporte();
+            archivoCuentas.seek(((posicionSubCuenta - 1) * VALOR_RENGLON_CUENTAS) + posicion);
+            archivoCuentas.writeFloat(sumaImporte);
+
+            // Afectación a la SubSubCuenta
+            archivoCuentas.seek(((posicionSubSubCuenta - 1) * VALOR_RENGLON_CUENTAS) + posicion);
+            sumaImporte = archivoCuentas.readFloat() + asiento.getImporte();
+            archivoCuentas.seek(((posicionSubSubCuenta - 1) * VALOR_RENGLON_CUENTAS) + posicion);
+            archivoCuentas.writeFloat(sumaImporte);
+        } catch (IOException iOException) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -6,12 +6,8 @@ import Controller.ConsultaController;
 import Controller.ModificacionController;
 import Controller.RegistroController;
 import DataAccesor.CuentaDataAccesor;
-import Models.BajaModel;
-import Models.CapturaPolizasModel;
-import Models.ConsultaModel;
-import Models.CuentasModel;
-import Models.ModificacionModel;
-import Models.RegistroModel;
+import DataAccesor.PolizaDataAccesor;
+import Models.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -77,19 +73,25 @@ public class MenuPrincipal extends JFrame {
         barraMenu.add(polizas);
 
         afectar = new JMenuItem("Afectar cuentas");
-        afectar.addActionListener((evt) -> {
-            int opcion = JOptionPane.showConfirmDialog(this, "¿Seguro que deseas afectar las cuentas con las pólizas guardadas?");
-            if(opcion == 1 || opcion == 2) {
+        afectar.addActionListener(evt -> {
+            PolizasModel polizaModel = new PolizasModel();
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Seguro que deseas afectar las cuentas? (" + polizaModel.obtenerTotalPolizas() + " pólizas guardadas)");
+            if (opcion == 1 || opcion == 2) {
                 return;
             }
+            if (!polizaModel.afectarCuentas()) {
+                JOptionPane.showMessageDialog(this, "No se pudieron afectar las cuentas");
+                return;
+            }
+            JOptionPane.showMessageDialog(this, "Las cuentas han sido afectadas correctamente");
         });
         polizas.add(afectar);
         barraMenu.add(polizas);
-        
+
         setVisible(true);
-        
+
         // TEST
-        abrirMenuCapturaPolizas();
+//        abrirMenuCapturaPolizas();
     }
 
     public void abrirMenuRegistro() {

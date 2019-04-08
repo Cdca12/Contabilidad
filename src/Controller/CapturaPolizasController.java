@@ -38,6 +38,7 @@ public class CapturaPolizasController implements ActionListener {
             }
             if (!cuentasModel.existeCuenta(view.txtCuenta.getText())) {
                 view.mostrarMensaje("No existe ese número de cuenta");
+                view.txtCuenta.requestFocus();
                 return;
             }
             if (cuentasModel.estaDadoDeBaja(view.txtCuenta.getText())) {
@@ -76,7 +77,10 @@ public class CapturaPolizasController implements ActionListener {
             }
             view.limpiarDatosTabla();
             model.imprimirPolizaTest();
+            view.txtPoliza.setText("");
+            view.txtPoliza.setEditable(true);
             view.mostrarMensaje("La póliza se ha guardado con éxito");
+            view.dispose();
         }
     }
 

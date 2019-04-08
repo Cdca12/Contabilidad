@@ -36,12 +36,13 @@ public class CapturaPolizasModel {
 
     public Vector<Asiento> convertirAAsientos(Vector<Vector<String>> datosTablaPolizas) {
         Vector<Asiento> datosAsientos = new Vector();
-        Asiento asientoActual = new Asiento();
         for (int i = 0; i < datosTablaPolizas.size(); i++) {
+            Asiento asientoActual = new Asiento();
             asientoActual.setPoliza(datosTablaPolizas.get(i).get(0));
             asientoActual.setCuenta(datosTablaPolizas.get(i).get(1));
             asientoActual.setTipo(datosTablaPolizas.get(i).get(2).charAt(0));
             asientoActual.setImporte(Float.parseFloat(datosTablaPolizas.get(i).get(3)));
+            asientoActual.setEstadoPoliza('N');
             datosAsientos.add(asientoActual);
         }
         return datosAsientos;
@@ -51,8 +52,9 @@ public class CapturaPolizasModel {
         Vector<Asiento> datosAsientos = convertirAAsientos(datosTablaPolizas);
         return polizaDataAccesor.guardarPoliza(datosAsientos);
     }
-    
+
     public boolean imprimirPolizaTest() {
         return polizaDataAccesor.imprimirPolizaTest();
     }
+
 }
