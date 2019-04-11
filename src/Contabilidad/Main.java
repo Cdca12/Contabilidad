@@ -1,7 +1,7 @@
-package contabilidad;
+package Contabilidad;
 
 import Views.MenuPrincipal;
-import utils.Tema;
+import Utils.Tema;
 
 /**
  *

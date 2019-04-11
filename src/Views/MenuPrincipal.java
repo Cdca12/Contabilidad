@@ -3,7 +3,7 @@ package Views;
 import Controller.*;
 import Models.*;
 import javax.swing.*;
-import utils.Rutinas;
+import Utils.Rutinas;
 
 /**
  *

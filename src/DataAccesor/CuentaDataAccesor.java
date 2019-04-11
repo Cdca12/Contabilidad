@@ -7,7 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Vector;
-import utils.Rutinas;
+import static Utils.Polizas.ABONO;
+import Utils.Rutinas;
 
 /**
  *
@@ -239,7 +240,8 @@ public class CuentaDataAccesor {
                 posicionSubSubCuenta = busquedaBinaria(subSubCuenta);
         float sumaImporte = 0;
 
-        int posicion = asiento.getTipo() == 'A' ? 38 : 34; // Si es abono o cargo
+        // Valor con el que se debe posicionar dependiendo si es abono o cargo
+        int posicion = asiento.getTipo() == ABONO ? 38 : 34; // false == CARGO
 
         try {
             // Afectación a la CuentaPadre

@@ -5,7 +5,7 @@ import java.awt.Font;
 import java.util.Arrays;
 import java.util.Vector;
 import javax.swing.*;
-import utils.Rutinas;
+import Utils.Rutinas;
 
 /**
  *

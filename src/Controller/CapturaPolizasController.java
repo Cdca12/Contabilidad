@@ -4,7 +4,7 @@ import Models.CapturaPolizasModel;
 import Models.CuentasModel;
 import Views.CapturaPolizasView;
 import java.awt.event.*;
-import utils.Polizas;
+import Utils.Polizas;
 
 /**
  *

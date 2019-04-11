@@ -2,7 +2,7 @@ package Views;
 
 import Controller.RegistroController;
 import javax.swing.*;
-import utils.Rutinas;
+import Utils.Rutinas;
 
 /**
  *
